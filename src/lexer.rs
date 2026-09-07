@@ -111,7 +111,7 @@ impl Lexer {
         let words: String = self.input[start_position..self.position].iter().collect();
 
         if self.current_char() != Some('"') {
-            return Token::EOF;
+            return Token::Eof;
         }
 
         self.advance();
@@ -126,7 +126,7 @@ impl Lexer {
         let current = self.current_char();
 
         if current.is_none() {
-            return Token::EOF;
+            return Token::Eof;
         }
 
         let c = current.unwrap();
@@ -154,7 +154,7 @@ impl Lexer {
                             break;
                         }
                     }
-                    return self.next_token();
+                    self.next_token()
                 } else if self.current_char() == Some('*') {
                     self.advance();
 
@@ -170,7 +170,7 @@ impl Lexer {
                         }
                     }
 
-                    // return Token::EOF;
+                    // return Token::Eof;
                     panic!("Lexer Error: Unterminated block comment! You forgot to close /*");
                 } else {
                     Token::Slash
@@ -195,7 +195,7 @@ impl Lexer {
             '"' => self.read_string(),
             c if c.is_ascii_digit() => self.read_number(),
             c if c.is_alphanumeric() || c == '_' => self.read_word(),
-            _ => Token::EOF,
+            _ => Token::Eof,
         }
     }
 }
