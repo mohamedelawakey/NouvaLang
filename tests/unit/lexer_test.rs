@@ -12,7 +12,7 @@ fn test_variable_declaration() {
     assert_eq!(lexer.next_token(), Token::IntType);
     assert_eq!(lexer.next_token(), Token::Assign);
     assert_eq!(lexer.next_token(), Token::IntLiteral(25));
-    assert_eq!(lexer.next_token(), Token::EOF);
+    assert_eq!(lexer.next_token(), Token::Eof);
 }
 
 #[test]
@@ -39,7 +39,7 @@ fn test_string_and_boolean_variables() {
     assert_eq!(lexer.next_token(), Token::BoolType);
     assert_eq!(lexer.next_token(), Token::Assign);
     assert_eq!(lexer.next_token(), Token::BooleanLiteral(true));
-    assert_eq!(lexer.next_token(), Token::EOF);
+    assert_eq!(lexer.next_token(), Token::Eof);
 }
 
 #[test]
@@ -79,7 +79,7 @@ fn test_function_declaration() {
     assert_eq!(lexer.next_token(), Token::Return);
     assert_eq!(lexer.next_token(), Token::Identifier("result".to_string()));
     assert_eq!(lexer.next_token(), Token::RBrace);
-    assert_eq!(lexer.next_token(), Token::EOF);
+    assert_eq!(lexer.next_token(), Token::Eof);
 }
 
 #[test]
@@ -111,7 +111,7 @@ fn test_control_flow_and_comparisons() {
     );
     assert_eq!(lexer.next_token(), Token::RParen);
     assert_eq!(lexer.next_token(), Token::RBrace);
-    assert_eq!(lexer.next_token(), Token::EOF);
+    assert_eq!(lexer.next_token(), Token::Eof);
 }
 
 #[test]
@@ -136,5 +136,5 @@ fn test_comments_and_whitespaces() {
     assert_eq!(lexer.next_token(), Token::Identifier("y".to_string()));
     assert_eq!(lexer.next_token(), Token::Assign);
     assert_eq!(lexer.next_token(), Token::IntLiteral(20));
-    assert_eq!(lexer.next_token(), Token::EOF);
+    assert_eq!(lexer.next_token(), Token::Eof);
 }
