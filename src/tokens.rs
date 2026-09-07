@@ -26,10 +26,25 @@ pub enum Token {
     Minus,       // -
     Asterisk,    // *
     Slash,       // /
+    Percent,     // %
     Assign,      // =
-    Equals,      // ==
     GreaterThan, // >
     LessThan,    // <
+    Equals,      // ==
+
+    PlusEqual,     // +=
+    MinusEqual,    // -=
+    AsteriskEqual, // *=
+    SlashEqual,    // /=
+    PercentEqual,  // %=
+
+    // Logical Operators
+    And,          // &&
+    Or,           // ||
+    Not,          // !
+    BangEqual,    // !=
+    GreaterEqual, // >=
+    LessEqual,    // <=
 
     // Punctuation
     Colon,  // :

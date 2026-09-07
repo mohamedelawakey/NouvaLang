@@ -134,18 +134,38 @@ impl Lexer {
         self.advance();
 
         match c {
-            '+' => Token::Plus,
+            '+' => {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::PlusEqual
+                } else {
+                    Token::Plus
+                }
+            }
             '-' => {
-                if self.current_char() == Some('>') {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::MinusEqual
+                } else if self.current_char() == Some('>') {
                     self.advance();
                     Token::Arrow
                 } else {
                     Token::Minus
                 }
             }
-            '*' => Token::Asterisk,
+            '*' => {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::AsteriskEqual
+                } else {
+                    Token::Asterisk
+                }
+            }
             '/' => {
-                if self.current_char() == Some('/') {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::SlashEqual
+                } else if self.current_char() == Some('/') {
                     self.advance();
                     while let Some(c) = self.current_char() {
                         if c != '\n' {
@@ -176,6 +196,14 @@ impl Lexer {
                     Token::Slash
                 }
             }
+            '%' => {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::PercentEqual
+                } else {
+                    Token::Percent
+                }
+            }
             '=' => {
                 if self.current_char() == Some('=') {
                     self.advance();
@@ -184,14 +212,52 @@ impl Lexer {
                     Token::Assign
                 }
             }
+            '!' => {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::BangEqual
+                } else {
+                    Token::Not
+                }
+            }
+            '&' => {
+                if self.current_char() == Some('&') {
+                    self.advance();
+                    Token::And
+                } else {
+                    Token::Eof
+                }
+            }
+            '|' => {
+                if self.current_char() == Some('|') {
+                    self.advance();
+                    Token::Or
+                } else {
+                    Token::Eof
+                }
+            }
             ':' => Token::Colon,
             ',' => Token::Comma,
             '{' => Token::LBrace,
             '}' => Token::RBrace,
             '(' => Token::LParen,
             ')' => Token::RParen,
-            '>' => Token::GreaterThan,
-            '<' => Token::LessThan,
+            '>' => {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::GreaterEqual
+                } else {
+                    Token::GreaterThan
+                }
+            }
+            '<' => {
+                if self.current_char() == Some('=') {
+                    self.advance();
+                    Token::LessEqual
+                } else {
+                    Token::LessThan
+                }
+            }
             '"' => self.read_string(),
             c if c.is_ascii_digit() => self.read_number(),
             c if c.is_alphanumeric() || c == '_' => self.read_word(),
