@@ -17,7 +17,13 @@ If you find a bug in the lexer, parser, or any other component, please open an i
 ### 2. Suggesting Enhancements
 Have an idea for a new language feature or syntax? We are completely open to suggestions! Open an issue on GitHub, add the `enhancement` label, and describe your idea in detail.
 
-### 3. Submitting Pull Requests
+### 3. Working on Open Issues
+If you see an issue that you'd like to work on (especially those marked as `good first issue` or `help wanted`):
+1. **Drop a comment** on the issue saying you'd like to work on it.
+2. **Wait for a maintainer** to assign it to you so nobody else duplicates your work.
+3. Once assigned, follow the Pull Request workflow below!
+
+### 4. Submitting Pull Requests
 If you want to dive into the code, here is the workflow to follow:
 
 1. **Fork the Repository:** Create your own fork of the project on GitHub.
