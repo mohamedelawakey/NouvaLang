@@ -20,7 +20,7 @@ pub enum Token {
     FloatLiteral(f64),
     StringLiteral(String),
     BooleanLiteral(bool),
-    
+
     // Operators
     Plus,        // +
     Minus,       // -
@@ -42,5 +42,5 @@ pub enum Token {
     Comment,     // //
     LongComment, // /* */
 
-    EOF
+    EOF,
 }

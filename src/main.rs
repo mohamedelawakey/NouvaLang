@@ -1,5 +1,5 @@
-mod tokens;
 mod lexer;
+mod tokens;
 use lexer::Lexer;
 use tokens::Token;
 
@@ -8,7 +8,7 @@ fn main() {
 
     let mut lexer = Lexer::new(source_code);
     println!("lexer starts:");
-    
+
     loop {
         let token = lexer.next_token();
         println!("{:?}", token);

@@ -2,11 +2,11 @@ use crate::tokens::Token;
 
 pub struct Lexer {
     input: Vec<char>,
-    position: usize
+    position: usize,
 }
 
 impl Lexer {
-    pub fn new(source: &str) -> Self{
+    pub fn new(source: &str) -> Self {
         Lexer {
             input: source.chars().collect(),
             position: 0,
@@ -17,8 +17,7 @@ impl Lexer {
     fn current_char(&self) -> Option<char> {
         if self.position >= self.input.len() {
             None
-        }
-        else {
+        } else {
             Some(self.input[self.position])
         }
     }
@@ -33,8 +32,7 @@ impl Lexer {
         while let Some(c) = self.current_char() {
             if c.is_whitespace() {
                 self.advance();
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -48,12 +46,10 @@ impl Lexer {
         while let Some(c) = self.current_char() {
             if c.is_ascii_digit() {
                 self.advance();
-            }
-            else if c == '.' && !is_float {
+            } else if c == '.' && !is_float {
                 is_float = true;
                 self.advance();
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -63,8 +59,7 @@ impl Lexer {
         if is_float {
             let value: f64 = number_str.parse().unwrap();
             Token::FloatLiteral(value)
-        }
-        else {
+        } else {
             let value: i64 = number_str.parse().unwrap();
             Token::IntLiteral(value)
         }
@@ -75,10 +70,9 @@ impl Lexer {
         let start_pos = self.position - 1;
 
         while let Some(c) = self.current_char() {
-            if c.is_alphanumeric() || c == '_'{
+            if c.is_alphanumeric() || c == '_' {
                 self.advance();
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -102,15 +96,14 @@ impl Lexer {
         }
     }
 
-    // read string 
+    // read string
     pub fn read_string(&mut self) -> Token {
         let start_position = self.position;
 
-        while let Some (c) = self.current_char() {
+        while let Some(c) = self.current_char() {
             if c != '"' {
                 self.advance();
-            }
-            else {
+            } else {
                 break;
             }
         }
@@ -149,7 +142,7 @@ impl Lexer {
                 } else {
                     Token::Minus
                 }
-            },
+            }
             '*' => Token::Asterisk,
             '/' => {
                 if self.current_char() == Some('/') {
@@ -157,14 +150,12 @@ impl Lexer {
                     while let Some(c) = self.current_char() {
                         if c != '\n' {
                             self.advance();
-                        }
-                        else {
+                        } else {
                             break;
                         }
                     }
                     return self.next_token();
-                }
-                else if self.current_char() == Some('*') {
+                } else if self.current_char() == Some('*') {
                     self.advance();
 
                     while let Some(c) = self.current_char() {
@@ -178,14 +169,13 @@ impl Lexer {
                             self.advance();
                         }
                     }
-                    
+
                     // return Token::EOF;
                     panic!("Lexer Error: Unterminated block comment! You forgot to close /*");
-                }
-                else {
+                } else {
                     Token::Slash
                 }
-            },
+            }
             '=' => {
                 if self.current_char() == Some('=') {
                     self.advance();
@@ -193,7 +183,7 @@ impl Lexer {
                 } else {
                     Token::Assign
                 }
-            },
+            }
             ':' => Token::Colon,
             ',' => Token::Comma,
             '{' => Token::LBrace,
@@ -204,11 +194,10 @@ impl Lexer {
             '<' => Token::LessThan,
             '"' => self.read_string(),
             c if c.is_ascii_digit() => self.read_number(),
-            c if c.is_alphanumeric() || c == '_' => self.read_word(), 
+            c if c.is_alphanumeric() || c == '_' => self.read_word(),
             _ => Token::EOF,
         }
     }
-
 }
 
 #[cfg(test)]

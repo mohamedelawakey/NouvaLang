@@ -25,10 +25,16 @@ fn test_string_and_boolean_variables() {
     assert_eq!(lexer.next_token(), Token::Colon);
     assert_eq!(lexer.next_token(), Token::StringType);
     assert_eq!(lexer.next_token(), Token::Assign);
-    assert_eq!(lexer.next_token(), Token::StringLiteral("Mohamed".to_string()));
+    assert_eq!(
+        lexer.next_token(),
+        Token::StringLiteral("Mohamed".to_string())
+    );
 
     assert_eq!(lexer.next_token(), Token::Let);
-    assert_eq!(lexer.next_token(), Token::Identifier("is_admin".to_string()));
+    assert_eq!(
+        lexer.next_token(),
+        Token::Identifier("is_admin".to_string())
+    );
     assert_eq!(lexer.next_token(), Token::Colon);
     assert_eq!(lexer.next_token(), Token::BoolType);
     assert_eq!(lexer.next_token(), Token::Assign);
@@ -60,7 +66,7 @@ fn test_function_declaration() {
     assert_eq!(lexer.next_token(), Token::Arrow);
     assert_eq!(lexer.next_token(), Token::IntType);
     assert_eq!(lexer.next_token(), Token::LBrace);
-    
+
     assert_eq!(lexer.next_token(), Token::Let);
     assert_eq!(lexer.next_token(), Token::Identifier("result".to_string()));
     assert_eq!(lexer.next_token(), Token::Colon);
@@ -88,15 +94,21 @@ fn test_control_flow_and_comparisons() {
     assert_eq!(lexer.next_token(), Token::LBrace);
     assert_eq!(lexer.next_token(), Token::Identifier("print".to_string()));
     assert_eq!(lexer.next_token(), Token::LParen);
-    assert_eq!(lexer.next_token(), Token::StringLiteral("Adult".to_string()));
+    assert_eq!(
+        lexer.next_token(),
+        Token::StringLiteral("Adult".to_string())
+    );
     assert_eq!(lexer.next_token(), Token::RParen);
     assert_eq!(lexer.next_token(), Token::RBrace);
-    
+
     assert_eq!(lexer.next_token(), Token::Else);
     assert_eq!(lexer.next_token(), Token::LBrace);
     assert_eq!(lexer.next_token(), Token::Identifier("print".to_string()));
     assert_eq!(lexer.next_token(), Token::LParen);
-    assert_eq!(lexer.next_token(), Token::StringLiteral("Minor".to_string()));
+    assert_eq!(
+        lexer.next_token(),
+        Token::StringLiteral("Minor".to_string())
+    );
     assert_eq!(lexer.next_token(), Token::RParen);
     assert_eq!(lexer.next_token(), Token::RBrace);
     assert_eq!(lexer.next_token(), Token::EOF);
