@@ -35,6 +35,12 @@ If you want to dive into the code, here is the workflow to follow:
 7. **Push to the branch:** `git push origin feature/your-feature-name`
 8. **Open a Pull Request (PR):** Submit the PR against the `main` branch of this repository.
 
+## 🧪 Testing Requirements (Strict)
+NouvaLang requires **rigorous and violent testing** for any new feature or bug fix. A PR will **NOT** be merged unless it includes comprehensive unit tests.
+- **Cover Edge Cases:** Don't just test the "happy path". Test weird formatting, lack of spaces, and complex/nested scenarios.
+- **Multiple Scenarios:** Write multiple assertions simulating heavy real-world usage (e.g., mixing operators, complex conditions, edge-case syntax).
+- Look at `tests/unit/lexer_test.rs` for examples of the "violent testing" standard expected in this project.
+
 ## 🧑‍💻 Code Style
 - Since the compiler is written in **Rust**, please ensure you use `cargo fmt` to format your code before submitting a PR.
 - Add comments where necessary, especially for complex compiler logic.
