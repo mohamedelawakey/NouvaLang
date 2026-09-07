@@ -22,23 +22,23 @@ pub enum Token {
     BooleanLiteral(bool),
 
     // Operators
-    Plus,        // +
-    Minus,       // -
-    Asterisk,    // *
-    Slash,       // /
-    Assign,      // =
-    Equals,      // ==
-    GreaterThan, // >
-    LessThan,    // <
+    Plus,  // +
+    Minus,  // -
+    Asterisk,  // *
+    Slash,  // /
+    Assign,  // =
+    Equals,  // ==
+    GreaterThan,  // >
+    LessThan,  // <
 
     // Punctuation
-    Colon,       // :
-    Comma,       // ,
-    Arrow,       // ->
-    LParen,      // (
-    RParen,      // )
-    LBrace,      // {
-    RBrace,      // }
+    Colon,  // :
+    Comma,  // ,
+    Arrow,  // ->
+    LParen, // (
+    RParen, // )
+    LBrace, // {
+    RBrace, // }
 
     Eof,
 }
