@@ -39,8 +39,6 @@ pub enum Token {
     RParen,      // )
     LBrace,      // {
     RBrace,      // }
-    Comment,     // //
-    LongComment, // /* */
 
-    EOF,
+    Eof,
 }
