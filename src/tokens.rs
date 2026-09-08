@@ -6,6 +6,9 @@ pub enum Token {
     If,
     Else,
     While,
+    For,
+    In,
+    To,
     Return,
 
     // Types
@@ -27,6 +30,7 @@ pub enum Token {
     Asterisk,    // *
     Slash,       // /
     Percent,     // %
+    Caret,       // ^
     Assign,      // =
     GreaterThan, // >
     LessThan,    // <
@@ -54,6 +58,6 @@ pub enum Token {
     RParen, // )
     LBrace, // {
     RBrace, // }
-
+    Semicolon, // ;
     Eof,
 }
