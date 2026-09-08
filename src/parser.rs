@@ -136,10 +136,7 @@ impl Parser {
 
         self.next_token();
 
-        let right = match self.expression_parser(precedence) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let right = self.expression_parser(precedence)?;
 
         Some(Expr::Infix {
             left: Box::new(left),
@@ -157,10 +154,7 @@ impl Parser {
 
         self.next_token();
 
-        let right = match self.expression_parser(Precedence::Prefix) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let right = self.expression_parser(Precedence::Prefix)?;
 
         Some(Expr::Prefix {
             operator,
@@ -200,9 +194,7 @@ impl Parser {
             }
         };
 
-        if left_expr.is_none() {
-            return None;
-        }
+        left_expr.as_ref()?;
 
         while self.peek_token != Token::Eof && precedence < self.peek_precedence() {
             self.next_token();
@@ -253,10 +245,7 @@ impl Parser {
         self.next_token();
         self.next_token();
 
-        let value = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let value = self.expression_parser(Precedence::Lowest)?;
 
         if self.peek_token == Token::Semicolon {
             self.next_token();
@@ -273,10 +262,7 @@ impl Parser {
     fn parse_return_statement(&mut self) -> Option<Stmt> {
         self.next_token();
 
-        let value = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let value = self.expression_parser(Precedence::Lowest)?;
 
         if self.peek_token == Token::Semicolon {
             self.next_token();
@@ -305,10 +291,7 @@ impl Parser {
     fn parse_if_statement(&mut self) -> Option<Stmt> {
         self.next_token(); // Skip 'if'
 
-        let condition = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let condition = self.expression_parser(Precedence::Lowest)?;
 
         if self.peek_token != Token::LBrace {
             self.peek_error("{");
@@ -343,10 +326,7 @@ impl Parser {
     fn parse_while_statement(&mut self) -> Option<Stmt> {
         self.next_token(); // Skip 'while'
 
-        let condition = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let condition = self.expression_parser(Precedence::Lowest)?;
 
         if self.peek_token != Token::LBrace {
             self.peek_error("{");
@@ -381,10 +361,7 @@ impl Parser {
         self.next_token(); // Move past 'in'
 
         // parse start_value
-        let start_value = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let start_value = self.expression_parser(Precedence::Lowest)?;
 
         // ensure next token is 'to'
         if self.peek_token != Token::To {
@@ -395,10 +372,7 @@ impl Parser {
         self.next_token(); // Move to end_value
 
         // parse end_value
-        let end_value = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let end_value = self.expression_parser(Precedence::Lowest)?;
 
         // ensure next is '{'
         if self.peek_token != Token::LBrace {
@@ -418,10 +392,7 @@ impl Parser {
     }
 
     fn parse_expression_statement(&mut self) -> Option<Stmt> {
-        let expr = match self.expression_parser(Precedence::Lowest) {
-            Some(expr) => expr,
-            None => return None,
-        };
+        let expr = self.expression_parser(Precedence::Lowest)?;
 
         if self.peek_token == Token::Semicolon {
             self.next_token();
