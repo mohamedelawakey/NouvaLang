@@ -85,11 +85,14 @@ impl Lexer {
             "if" => Token::If,
             "else" => Token::Else,
             "while" => Token::While,
+            "for" => Token::For,
+            "in" => Token::In,
+            "to" => Token::To,
             "return" => Token::Return,
             "int" => Token::IntType,
             "float" => Token::FloatType,
             "bool" => Token::BoolType,
-            "string" => Token::StringType,
+            "str" => Token::StringType,
             "true" => Token::BooleanLiteral(true),
             "false" => Token::BooleanLiteral(false),
             _ => Token::Identifier(word),
@@ -204,6 +207,7 @@ impl Lexer {
                     Token::Percent
                 }
             }
+            '^' => Token::Caret,
             '=' => {
                 if self.current_char() == Some('=') {
                     self.advance();
@@ -237,6 +241,7 @@ impl Lexer {
                 }
             }
             ':' => Token::Colon,
+            ';' => Token::Semicolon,
             ',' => Token::Comma,
             '{' => Token::LBrace,
             '}' => Token::RBrace,
