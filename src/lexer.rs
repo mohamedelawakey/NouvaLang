@@ -92,7 +92,7 @@ impl Lexer {
             "int" => Token::IntType,
             "float" => Token::FloatType,
             "bool" => Token::BoolType,
-            "str" => Token::StringType,
+            "string" => Token::StringType,
             "true" => Token::BooleanLiteral(true),
             "false" => Token::BooleanLiteral(false),
             _ => Token::Identifier(word),
