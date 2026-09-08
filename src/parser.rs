@@ -1,6 +1,6 @@
+use crate::ast::{Expr, Program, Stmt};
 use crate::lexer::Lexer;
 use crate::tokens::Token;
-use crate::ast::{Program, Stmt, Expr};
 
 #[derive(PartialEq, PartialOrd, Debug, Clone)]
 pub enum Precedence {
@@ -22,7 +22,6 @@ pub struct Parser {
     pub peek_token: Token,
     pub errors: Vec<String>,
 }
-
 
 impl Parser {
     pub fn new(mut lexer: Lexer) -> Self {
@@ -60,8 +59,7 @@ impl Parser {
     pub fn peek_error(&mut self, expected: &str) {
         let message = format!(
             "Syntax Error: Expected {} but got {:?}",
-            expected,
-            self.peek_token
+            expected, self.peek_token
         );
 
         self.errors.push(message);
@@ -72,11 +70,18 @@ impl Parser {
             Token::Or => Precedence::Or,
             Token::And => Precedence::And,
             Token::Equals | Token::BangEqual => Precedence::Equals,
-            Token::LessThan | Token::LessEqual | Token::GreaterThan | Token::GreaterEqual => Precedence::LessGreater,
+            Token::LessThan | Token::LessEqual | Token::GreaterThan | Token::GreaterEqual => {
+                Precedence::LessGreater
+            }
             Token::Plus | Token::Minus => Precedence::Sum,
             Token::Asterisk | Token::Slash | Token::Percent => Precedence::Product,
             Token::Caret => Precedence::Exponent,
-            Token::Assign | Token::PlusEqual | Token::MinusEqual | Token::AsteriskEqual | Token::SlashEqual | Token::PercentEqual => Precedence::Assign,
+            Token::Assign
+            | Token::PlusEqual
+            | Token::MinusEqual
+            | Token::AsteriskEqual
+            | Token::SlashEqual
+            | Token::PercentEqual => Precedence::Assign,
             _ => Precedence::Lowest,
         }
     }
@@ -86,16 +91,23 @@ impl Parser {
             Token::Or => Precedence::Or,
             Token::And => Precedence::And,
             Token::Equals | Token::BangEqual => Precedence::Equals,
-            Token::LessThan | Token::LessEqual | Token::GreaterThan | Token::GreaterEqual => Precedence::LessGreater,
+            Token::LessThan | Token::LessEqual | Token::GreaterThan | Token::GreaterEqual => {
+                Precedence::LessGreater
+            }
             Token::Plus | Token::Minus => Precedence::Sum,
             Token::Asterisk | Token::Slash | Token::Percent => Precedence::Product,
             Token::Caret => Precedence::Exponent,
-            Token::Assign | Token::PlusEqual | Token::MinusEqual | Token::AsteriskEqual | Token::SlashEqual | Token::PercentEqual => Precedence::Assign,
+            Token::Assign
+            | Token::PlusEqual
+            | Token::MinusEqual
+            | Token::AsteriskEqual
+            | Token::SlashEqual
+            | Token::PercentEqual => Precedence::Assign,
             _ => Precedence::Lowest,
         }
     }
 
-    pub fn parse_infix_expression(&mut self, left:Expr) -> Option<Expr> {
+    pub fn parse_infix_expression(&mut self, left: Expr) -> Option<Expr> {
         let operator = match &self.current_token {
             Token::Plus => "+".to_string(),
             Token::Minus => "-".to_string(),
@@ -126,16 +138,14 @@ impl Parser {
 
         let right = match self.expression_parser(precedence) {
             Some(expr) => expr,
-            None => return None
+            None => return None,
         };
 
-        Some(
-            Expr::Infix {
-                left: Box::new(left),
-                operator,
-                right: Box::new(right),
-            }
-        )
+        Some(Expr::Infix {
+            left: Box::new(left),
+            operator,
+            right: Box::new(right),
+        })
     }
 
     fn parse_prefix_expression(&mut self) -> Option<Expr> {
@@ -252,13 +262,11 @@ impl Parser {
             self.next_token();
         }
 
-        Some(
-            Stmt::Let {
-                name,
-                var_type,
-                value
-            }
-        )
+        Some(Stmt::Let {
+            name,
+            var_type,
+            value,
+        })
     }
 
     // return

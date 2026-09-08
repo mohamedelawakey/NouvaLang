@@ -51,13 +51,13 @@ pub enum Token {
     LessEqual,    // <=
 
     // Punctuation
-    Colon,  // :
-    Comma,  // ,
-    Arrow,  // ->
-    LParen, // (
-    RParen, // )
-    LBrace, // {
-    RBrace, // }
+    Colon,     // :
+    Comma,     // ,
+    Arrow,     // ->
+    LParen,    // (
+    RParen,    // )
+    LBrace,    // {
+    RBrace,    // }
     Semicolon, // ;
     Eof,
 }

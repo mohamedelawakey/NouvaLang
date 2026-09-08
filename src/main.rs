@@ -1,7 +1,7 @@
-mod lexer;
-mod tokens;
 mod ast;
+mod lexer;
 mod parser;
+mod tokens;
 
 use lexer::Lexer;
 use parser::Parser;
@@ -18,7 +18,7 @@ fn main() {
 
     let lexer = Lexer::new(source_code);
     let mut parser = Parser::new(lexer);
-    
+
     let program = parser.parse_program();
 
     if !parser.errors.is_empty() {

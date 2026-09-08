@@ -15,7 +15,7 @@ pub enum Expr {
     Prefix {
         operator: String,
         right: Box<Expr>,
-    }
+    },
 }
 
 #[derive(Debug, Clone)]
@@ -24,9 +24,9 @@ pub enum Stmt {
     Let {
         name: String,
         var_type: String,
-        value: Expr
+        value: Expr,
     },
-    // return 
+    // return
     Return {
         value: Expr,
     },
@@ -51,5 +51,5 @@ pub enum Stmt {
 
 #[derive(Debug, Clone)]
 pub struct Program {
-    pub statement: Vec<Stmt>
+    pub statement: Vec<Stmt>,
 }
