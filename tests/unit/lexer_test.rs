@@ -17,7 +17,7 @@ fn test_variable_declaration() {
 
 #[test]
 fn test_string_and_boolean_variables() {
-    let source = "let name: string = \"Mohamed\"\nlet is_admin: bool = true";
+    let source = "let name: str = \"Mohamed\"\nlet is_admin: bool = true";
     let mut lexer = Lexer::new(source);
 
     assert_eq!(lexer.next_token(), Token::Let);
