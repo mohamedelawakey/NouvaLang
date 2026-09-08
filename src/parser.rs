@@ -275,7 +275,7 @@ impl Parser {
     fn parse_block_statement(&mut self) -> Vec<Stmt> {
         let mut statements = Vec::new();
 
-        self.next_token(); // Skip the '{'
+        self.next_token();
 
         while self.current_token != Token::RBrace && self.current_token != Token::Eof {
             if let Some(stmt) = self.parse_statement() {
@@ -289,7 +289,7 @@ impl Parser {
 
     // if
     fn parse_if_statement(&mut self) -> Option<Stmt> {
-        self.next_token(); // Skip 'if'
+        self.next_token();
 
         let condition = self.expression_parser(Precedence::Lowest)?;
 
@@ -297,20 +297,20 @@ impl Parser {
             self.peek_error("{");
             return None;
         }
-        self.next_token(); // Move to '{'
+        self.next_token();
 
         let consequence = self.parse_block_statement();
 
         let mut alternative = None;
 
         if self.peek_token == Token::Else {
-            self.next_token(); // Move to 'else'
+            self.next_token();
 
             if self.peek_token != Token::LBrace {
                 self.peek_error("{");
                 return None;
             }
-            self.next_token(); // Move to '{'
+            self.next_token();
 
             alternative = Some(self.parse_block_statement());
         }
@@ -324,7 +324,7 @@ impl Parser {
 
     // while
     fn parse_while_statement(&mut self) -> Option<Stmt> {
-        self.next_token(); // Skip 'while'
+        self.next_token();
 
         let condition = self.expression_parser(Precedence::Lowest)?;
 
@@ -332,7 +332,7 @@ impl Parser {
             self.peek_error("{");
             return None;
         }
-        self.next_token(); // Move to '{'
+        self.next_token();
 
         let body = self.parse_block_statement();
 
@@ -341,9 +341,8 @@ impl Parser {
 
     // for
     fn parse_for_statement(&mut self) -> Option<Stmt> {
-        self.next_token(); // Skip 'for'
+        self.next_token();
 
-        // parse identifier
         let identifier = match &self.current_token {
             Token::Identifier(name) => name.clone(),
             _ => {
@@ -351,35 +350,30 @@ impl Parser {
                 return None;
             }
         };
-        self.next_token(); // Move past identifier
+        self.next_token();
 
-        // parse 'in'
         if self.current_token != Token::In {
             self.peek_error("in");
             return None;
         }
-        self.next_token(); // Move past 'in'
+        self.next_token();
 
-        // parse start_value
         let start_value = self.expression_parser(Precedence::Lowest)?;
 
-        // ensure next token is 'to'
         if self.peek_token != Token::To {
             self.peek_error("to");
             return None;
         }
-        self.next_token(); // Move to 'to'
-        self.next_token(); // Move to end_value
+        self.next_token();
+        self.next_token();
 
-        // parse end_value
         let end_value = self.expression_parser(Precedence::Lowest)?;
 
-        // ensure next is '{'
         if self.peek_token != Token::LBrace {
             self.peek_error("{");
             return None;
         }
-        self.next_token(); // Move to '{'
+        self.next_token();
 
         let body = self.parse_block_statement();
 
