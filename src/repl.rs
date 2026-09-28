@@ -16,7 +16,7 @@ pub fn run_repl() {
 
     loop {
         print!("nouva> ");
-        if io::stdout().flush().is_err() {
+        if let Err(_) = io::stdout().flush() {
             break;
         }
 

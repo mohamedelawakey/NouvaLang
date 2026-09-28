@@ -217,12 +217,20 @@ impl Parser {
         }
 
         self.next_token();
-        args.push(self.expression_parser(Precedence::Lowest)?);
+        if let Some(arg) = self.expression_parser(Precedence::Lowest) {
+            args.push(arg);
+        } else {
+            return None;
+        }
 
         while self.peek_token == Token::Comma {
             self.next_token();
             self.next_token();
-            args.push(self.expression_parser(Precedence::Lowest)?);
+            if let Some(arg) = self.expression_parser(Precedence::Lowest) {
+                args.push(arg);
+            } else {
+                return None;
+            }
         }
 
         if self.peek_token != Token::RParen {
