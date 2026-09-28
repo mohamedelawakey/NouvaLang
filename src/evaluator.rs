@@ -582,7 +582,7 @@ impl Evaluator {
 
                 let call_env = Rc::new(RefCell::new(Environment::new_enclosed(Rc::clone(env))));
 
-                for (param, arg) in parameters.iter().zip(args.into_iter()) {
+                for (param, arg) in parameters.iter().zip(args) {
                     if param.var_type != "auto"
                         && arg.type_name() != "null"
                         && arg.type_name() != param.var_type
