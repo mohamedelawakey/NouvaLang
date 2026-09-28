@@ -1,0 +1,88 @@
+// ==========================================
+// 🚀 NouvaLang Advanced Benchmark & Logic Demo
+// ==========================================
+
+print("========================================");
+print("🔥 Welcome to NouvaLang Advanced Engine!");
+print("========================================");
+
+// 1. Recursive Function: Fibonacci Series
+fun fibonacci(n: int) -> int {
+    if n <= 1 {
+        return n;
+    }
+    return fibonacci(n - 1) + fibonacci(n - 2);
+}
+
+// 2. Mathematical Function: Factorial
+fun factorial(n: int) -> int {
+    if n <= 1 {
+        return 1;
+    }
+    return n * factorial(n - 1);
+}
+
+// 3. Algorithm: Prime Number Checker
+fun is_prime(n: int) -> bool {
+    if n <= 1 {
+        return false;
+    }
+    
+    let divisor: int = 2;
+    while divisor * divisor <= n {
+        if n % divisor == 0 {
+            return false;
+        }
+        divisor += 1;
+    }
+    return true;
+}
+
+// --- Testing Recursive Fibonacci ---
+print("\n[1] Testing Fibonacci Sequence (First 10 numbers):");
+for i in 0 to 9 {
+    let fib_val: int = fibonacci(i);
+    print("  fib(" + (i as str) + ") =", fib_val);
+}
+
+// --- Testing Factorial & Complex Math ---
+let num: int = 6;
+let fact: int = factorial(num);
+print("\n[2] Factorial of", num, "is:", fact);
+
+let math_expr: float = ((10.5 + 4.5) * 2.0) ^ 2.0 / 10.0;
+print("  Complex math result ((10.5 + 4.5) * 2)^2 / 10 =", math_expr);
+
+// --- Testing Prime Numbers Discovery in Range ---
+print("\n[3] Finding Prime Numbers between 1 and 30:");
+let prime_count: int = 0;
+
+for candidate in 1 to 30 {
+    let prime_check: bool = is_prime(candidate);
+    if prime_check {
+        print("  -> Prime found:", candidate);
+        prime_count += 1;
+    }
+}
+print("  Total primes found:", prime_count);
+
+// --- Testing Nested Loops & Control Flow ---
+print("\n[4] Generating Multiplication Table (3x3):");
+for row in 1 to 3 {
+    let col: int = 1;
+    while col <= 3 {
+        let product: int = row * col;
+        print("   ", row, "x", col, "=", product);
+        col += 1;
+    }
+}
+
+// --- Testing Ternary Operator and Type Casting ---
+let score: int = 85;
+let grade: str = (score >= 90) ? "A+" : (score >= 80) ? "A" : "B";
+print("\n[5] Student Evaluation:");
+print("  Score:", score, "| Grade:", grade);
+
+print("\n========================================");
+print("✅ All complex algorithms completed successfully!");
+print("========================================");

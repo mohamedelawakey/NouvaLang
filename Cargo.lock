@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "NouvaLang"
+name = "nouva"
 version = "0.1.0"
