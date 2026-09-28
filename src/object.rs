@@ -80,7 +80,10 @@ pub struct Environment {
 impl Environment {
     pub fn new() -> Self {
         let mut store = HashMap::new();
-        store.insert("print".to_string(), Object::BuiltinFunction("print".to_string()));
+        store.insert(
+            "print".to_string(),
+            Object::BuiltinFunction("print".to_string()),
+        );
 
         Environment {
             store,
@@ -109,9 +112,18 @@ impl Environment {
         }
     }
 
-    pub fn define(&mut self, name: String, val: Object, var_type: String, is_const: bool) -> Result<Object, String> {
+    pub fn define(
+        &mut self,
+        name: String,
+        val: Object,
+        var_type: String,
+        is_const: bool,
+    ) -> Result<Object, String> {
         if self.store.contains_key(&name) {
-            return Err(format!("Variable '{}' already declared in this scope", name));
+            return Err(format!(
+                "Variable '{}' already declared in this scope",
+                name
+            ));
         }
 
         self.store.insert(name.clone(), val.clone());

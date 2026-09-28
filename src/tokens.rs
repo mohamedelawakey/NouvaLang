@@ -61,10 +61,10 @@ pub enum Token {
     Question,
 
     // Brackets,
-    Arrow,     // ->
-    LParen,    // (
-    RParen,    // )
-    LBrace,    // {
-    RBrace,    // }
+    Arrow,  // ->
+    LParen, // (
+    RParen, // )
+    LBrace, // {
+    RBrace, // }
     Eof,
 }

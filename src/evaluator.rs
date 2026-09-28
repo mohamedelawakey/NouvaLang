@@ -50,7 +50,10 @@ impl Evaluator {
                     ));
                 }
 
-                match env.borrow_mut().define(name.clone(), val, var_type.clone(), false) {
+                match env
+                    .borrow_mut()
+                    .define(name.clone(), val, var_type.clone(), false)
+                {
                     Ok(v) => v,
                     Err(e) => Object::Error(e),
                 }
@@ -74,7 +77,10 @@ impl Evaluator {
                     ));
                 }
 
-                match env.borrow_mut().define(name.clone(), val, var_type.clone(), true) {
+                match env
+                    .borrow_mut()
+                    .define(name.clone(), val, var_type.clone(), true)
+                {
                     Ok(v) => v,
                     Err(e) => Object::Error(e),
                 }
@@ -159,7 +165,7 @@ impl Evaluator {
                         return Object::Error(format!(
                             "For loop start value must be an integer, got '{}'",
                             start_obj.type_name()
-                        ))
+                        ));
                     }
                 };
 
@@ -169,14 +175,19 @@ impl Evaluator {
                         return Object::Error(format!(
                             "For loop end value must be an integer, got '{}'",
                             end_obj.type_name()
-                        ))
+                        ));
                     }
                 };
 
                 let mut result = Object::Null;
 
                 let for_env = Rc::new(RefCell::new(Environment::new_enclosed(Rc::clone(env))));
-                let _ = for_env.borrow_mut().define(identifier.clone(), Object::Integer(start), "int".to_string(), false);
+                let _ = for_env.borrow_mut().define(
+                    identifier.clone(),
+                    Object::Integer(start),
+                    "int".to_string(),
+                    false,
+                );
 
                 let range: Box<dyn Iterator<Item = i64>> = if start <= end {
                     Box::new(start..=end)
@@ -185,7 +196,9 @@ impl Evaluator {
                 };
 
                 for current in range {
-                    let _ = for_env.borrow_mut().set(identifier, Object::Integer(current));
+                    let _ = for_env
+                        .borrow_mut()
+                        .set(identifier, Object::Integer(current));
                     result = self.eval_block(body, &for_env);
 
                     match result {
@@ -217,7 +230,10 @@ impl Evaluator {
                     env: Rc::clone(env),
                 };
 
-                match env.borrow_mut().define(name.clone(), func, "fun".to_string(), false) {
+                match env
+                    .borrow_mut()
+                    .define(name.clone(), func, "fun".to_string(), false)
+                {
                     Ok(v) => v,
                     Err(e) => Object::Error(e),
                 }
@@ -355,7 +371,9 @@ impl Evaluator {
         } else {
             let current_val = match env.borrow().get(name) {
                 Some(val) => val,
-                None => return Object::Error(format!("Variable '{}' not found for assignment", name)),
+                None => {
+                    return Object::Error(format!("Variable '{}' not found for assignment", name));
+                }
             };
 
             let op_char = match operator {
@@ -364,7 +382,9 @@ impl Evaluator {
                 "*=" => "*",
                 "/=" => "/",
                 "%=" => "%",
-                _ => return Object::Error(format!("Unsupported assignment operator '{}'", operator)),
+                _ => {
+                    return Object::Error(format!("Unsupported assignment operator '{}'", operator));
+                }
             };
 
             let computed = self.eval_infix_expression(op_char, &current_val, &right_val);
@@ -388,7 +408,11 @@ impl Evaluator {
                 Object::Float(f) => Object::Float(-f),
                 _ => Object::Error(format!("Unknown operator: -{}", right.type_name())),
             },
-            _ => Object::Error(format!("Unknown operator: {}{}", operator, right.type_name())),
+            _ => Object::Error(format!(
+                "Unknown operator: {}{}",
+                operator,
+                right.type_name()
+            )),
         }
     }
 
@@ -466,11 +490,19 @@ impl Evaluator {
             },
             (Object::String(l), other) => match operator {
                 "+" => Object::String(format!("{}{}", l, other.inspect())),
-                _ => Object::Error(format!("Unknown operator: str {} {}", operator, other.type_name())),
+                _ => Object::Error(format!(
+                    "Unknown operator: str {} {}",
+                    operator,
+                    other.type_name()
+                )),
             },
             (other, Object::String(r)) => match operator {
                 "+" => Object::String(format!("{}{}", other.inspect(), r)),
-                _ => Object::Error(format!("Unknown operator: {} {} str", other.type_name(), operator)),
+                _ => Object::Error(format!(
+                    "Unknown operator: {} {} str",
+                    other.type_name(),
+                    operator
+                )),
             },
             (Object::Boolean(l), Object::Boolean(r)) => match operator {
                 "==" => Object::Boolean(l == r),
@@ -548,7 +580,10 @@ impl Evaluator {
                 let call_env = Rc::new(RefCell::new(Environment::new_enclosed(Rc::clone(env))));
 
                 for (param, arg) in parameters.iter().zip(args.into_iter()) {
-                    if param.var_type != "auto" && arg.type_name() != "null" && arg.type_name() != param.var_type {
+                    if param.var_type != "auto"
+                        && arg.type_name() != "null"
+                        && arg.type_name() != param.var_type
+                    {
                         return Object::Error(format!(
                             "Type mismatch for parameter '{}': expected '{}', got '{}'",
                             param.name,
@@ -556,7 +591,12 @@ impl Evaluator {
                             arg.type_name()
                         ));
                     }
-                    let _ = call_env.borrow_mut().define(param.name.clone(), arg, param.var_type.clone(), false);
+                    let _ = call_env.borrow_mut().define(
+                        param.name.clone(),
+                        arg,
+                        param.var_type.clone(),
+                        false,
+                    );
                 }
 
                 let result = self.eval_block(body, &call_env);
@@ -584,7 +624,11 @@ mod tests {
         let lexer = Lexer::new(input);
         let mut parser = Parser::new(lexer);
         let program = parser.parse_program();
-        assert!(parser.errors.is_empty(), "Parser errors: {:?}", parser.errors);
+        assert!(
+            parser.errors.is_empty(),
+            "Parser errors: {:?}",
+            parser.errors
+        );
 
         let env = Rc::new(RefCell::new(Environment::new()));
         let mut evaluator = Evaluator::new();

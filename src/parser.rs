@@ -633,7 +633,7 @@ impl Parser {
                 return None;
             }
         };
-        
+
         if self.peek_token != Token::LBrace {
             self.peek_error("{");
             return None;
