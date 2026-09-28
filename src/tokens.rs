@@ -10,6 +10,10 @@ pub enum Token {
     In,
     To,
     Return,
+    Const,
+    Break,
+    Continue,
+    As,
 
     // Types
     IntType,
@@ -17,12 +21,12 @@ pub enum Token {
     BoolType,
     StringType,
 
-    // Literals
     Identifier(String),
     IntLiteral(i64),
     FloatLiteral(f64),
     StringLiteral(String),
     BooleanLiteral(bool),
+    None,
 
     // Operators
     Plus,        // +
@@ -51,13 +55,16 @@ pub enum Token {
     LessEqual,    // <=
 
     // Punctuation
-    Colon,     // :
-    Comma,     // ,
+    Colon,
+    Semicolon,
+    Comma,
+    Question,
+
+    // Brackets,
     Arrow,     // ->
     LParen,    // (
     RParen,    // )
     LBrace,    // {
     RBrace,    // }
-    Semicolon, // ;
     Eof,
 }
