@@ -383,7 +383,10 @@ impl Evaluator {
                 "/=" => "/",
                 "%=" => "%",
                 _ => {
-                    return Object::Error(format!("Unsupported assignment operator '{}'", operator));
+                    return Object::Error(format!(
+                        "Unsupported assignment operator '{}'",
+                        operator
+                    ));
                 }
             };
 
