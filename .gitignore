@@ -1,4 +1,7 @@
 /target
+
+# md files
 language_v0_1_specification.md
 flow.md
 flow_code.md
+RELEASE_NOTES_v0.1.0.md
