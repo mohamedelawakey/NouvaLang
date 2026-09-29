@@ -108,7 +108,7 @@ cargo test
 
 ## 🗺️ Project Architecture & Documentation
 
-- **[NouvaLang Documentation](https://mohamedelawakey.github.io/NouvaLang_docs/):** Complete developer guide and language tutorials.
+- **[NouvaLang Documentation](https://mohamedelawakey.github.io/NouvaLang-Docs/):** Complete developer guide and language tutorials.
 - **[PLAN.md](PLAN.md):** Project Roadmap and completed architectural milestones.
 
 ---
