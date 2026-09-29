@@ -1,38 +1,48 @@
 # NouvaLang 🚀
 
-NouvaLang is a modern, statically typed, open-source programming language designed to bring the best of both worlds: the raw performance of **C** and the elegant, developer-friendly syntax of **Python**. Built entirely from scratch in Rust, our ultimate vision is to create a high-performance language with first-class support for Artificial Intelligence and Machine Learning workloads natively.
+NouvaLang is a modern, statically typed, open-source programming language designed to bring the best of both worlds: high performance and an elegant, developer-friendly syntax. Our vision is to create a high-performance language with first-class support for Artificial Intelligence and Machine Learning workloads natively.
 
 ---
 
 ## ✨ Highlights of NouvaLang (v0.1.0 MVP)
 
-- **⚡ Blazing Fast Execution:** Tree-walking AST evaluator with strict type checking.
-- **🐍 Clean Syntax:** Intuitive, Python/Swift-like syntax with braces for block structure.
+- **📦 Zero Prerequisites for Users:** Download standalone pre-compiled binaries for Linux, Windows, or macOS and start coding immediately. No compilers or runtimes required!
+- **⚡ Blazing Fast Execution:** Native tree-walking AST evaluator with strict type checking.
+- **🐍 Clean Syntax:** Intuitive, modern syntax with braces for clear block structure.
 - **🛡️ Strict Static-like Typing:** Compile/runtime type enforcement for `int`, `float`, `bool`, and `str`.
 - **🔄 Rich Control Flow & Recursion:** `if/else`, `while`, `for ... in ... to`, recursive function declarations, and nested scopes.
 - **💻 CLI & Interactive REPL:** Dedicated `nouva` terminal command with interactive shell and file runner (`.nv`).
-- **🦀 Built with Rust:** Maximum safety, zero memory leaks, and blazing-fast toolchain.
 
 ---
 
-## 📦 Installation & Setup
+## 📦 Quick Installation (No Rust / No Dependencies Required)
 
-### Prerequisites
-Make sure you have [Rust & Cargo](https://rustup.rs/) installed:
+You do **NOT** need Rust or any other runtime installed on your machine. Simply download the standalone pre-compiled binary for your operating system:
+
+| Platform | Architecture | Archive Package |
+| :--- | :--- | :--- |
+| **Linux** | x86_64 | [Download `nouva-linux-x86_64.tar.gz`](https://github.com/mohamedelawakey/NouvaLang/releases/latest) |
+| **Windows** | x86_64 | [Download `nouva-windows-x86_64.zip`](https://github.com/mohamedelawakey/NouvaLang/releases/latest) |
+| **macOS** | x86_64 | [Download `nouva-macos-x86_64.tar.gz`](https://github.com/mohamedelawakey/NouvaLang/releases/latest) |
+
+### Linux & macOS Quick Setup
 ```bash
-rustc --version
-cargo --version
+# 1. Extract the downloaded archive
+tar -xzvf nouva-linux-x86_64.tar.gz
+
+# 2. Grant execution permission
+chmod +x nouva
+
+# 3. (Optional) Move to system PATH to use 'nouva' anywhere
+sudo mv nouva /usr/local/bin/
 ```
 
-### Install Nouva CLI Globally
-Clone the repository and install the binary:
-```bash
-git clone https://github.com/mohamedelawakey/NouvaLang.git
-cd NouvaLang
-cargo install --path .
+### Windows Quick Setup
+1. Extract `nouva-windows-x86_64.zip`.
+2. Open PowerShell or CMD in the extracted folder and run:
+```powershell
+.\nouva.exe
 ```
-
-Now `nouva` is available globally in your terminal!
 
 ---
 
@@ -51,12 +61,13 @@ nouva> let age: int = 20;
 nouva> let status: str = (age >= 18) ? "Adult" : "Minor";
 nouva> print("Status:", status);
 Status: Adult
+null
 nouva> exit
 ```
 
 ### 2. Running a Nouva Script File (`.nv`)
 Create a file named `main.nv`:
-```swift
+```kotlin
 // main.nv - Fibonacci Demo
 fun fibonacci(n: int) -> int {
     if n <= 1 {
@@ -69,18 +80,26 @@ let count: int = 8;
 print("Fibonacci of", count, "is:", fibonacci(count));
 ```
 
-Run it using the CLI:
+Run it directly using the CLI:
 ```bash
-nouva run main.nv
-# or directly:
 nouva main.nv
+# or using the run subcommand:
+nouva run main.nv
 ```
 
 ---
 
-## 🧪 Running Unit Tests
+## 🛠️ Building From Source (For Contributors Only)
 
-NouvaLang comes with a comprehensive test suite (21 unit tests) covering the Lexer, Pratt Parser, Evaluator, Scoping, and Type Checker:
+If you are a contributor and wish to modify or build NouvaLang from source:
+
+```bash
+git clone https://github.com/mohamedelawakey/NouvaLang.git
+cd NouvaLang
+cargo build --release
+```
+
+Run unit tests (21 unit tests):
 ```bash
 cargo test
 ```
@@ -89,40 +108,13 @@ cargo test
 
 ## 🗺️ Project Architecture & Documentation
 
-- **[flow.md](flow.md):** Complete visual pipeline and architecture diagrams explaining how code transforms from raw text to execution.
-- **[flow_code.md](flow_code.md):** Detailed module breakdown (`tokens`, `lexer`, `ast`, `parser`, `object`, `evaluator`, `repl`).
-- **[language_v0_1_specification.md](language_v0_1_specification.md):** Formal v0.1.0 MVP Specification.
-
----
-
-## 📋 Status (v0.1.0 MVP - ✅ COMPLETED)
-
-- [x] **Phase 1: Lexical Analysis (Lexer)**
-  - [x] Full keyword, operator, and literal tokenization
-  - [x] Compound operators (`==`, `!=`, `>=`, `<=`, `+=`, `-=`, `*=`, `/=`, `%=`, `->`)
-  - [x] Escape characters in string literals (`\n`, `\t`, `\"`, `\\`)
-  - [x] Single-line `//` and multi-line `/* */` comments
-- [x] **Phase 2: Parsing (Parser)**
-  - [x] Abstract Syntax Tree (AST) definitions
-  - [x] Pratt Parser for mathematical and logical expressions with precedence
-  - [x] Variable and constant statements (`let`, `const`)
-  - [x] Function declarations (`fun`) and Function Calls (`print(...)`, `custom_func(...)`)
-  - [x] Control flow (`if/else`) and Loops (`while`, `for i in start to end`)
-  - [x] Ternary operator (`? :`) and Type Casting (`as`)
-- [x] **Phase 3: Evaluation Engine (Runtime)**
-  - [x] Object system and Scoped Memory Environment (Lexical Scoping)
-  - [x] Strict Type Checking on assignment and function arguments
-  - [x] Full recursion and return value propagation
-  - [x] Built-in `print(...)` function
-- [x] **Phase 4: CLI & REPL**
-  - [x] Global `nouva` executable CLI
-  - [x] File execution (`nouva run <file.nv>`)
-  - [x] Interactive REPL prompt
+- **[NouvaLang Documentation](https://mohamedelawakey.github.io/NouvaLang_docs/):** Complete developer guide and language tutorials.
+- **[PLAN.md](PLAN.md):** Project Roadmap and completed architectural milestones.
 
 ---
 
 ## 🤝 Contributing
-We welcome contributions from the community! If you are interested in compilers, programming language design, or future AI integrations, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+We welcome contributions from the community! Check out [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ---
 
